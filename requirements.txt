@@ -1,0 +1,4 @@
+waitress
+requests
+git+https://github.com/Rapptz/discord.py.git@rewrite
+aiohttp>=3.2.1

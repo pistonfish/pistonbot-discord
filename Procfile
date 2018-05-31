@@ -1,0 +1,1 @@
+worker: waitress-serve --listen=*:$PORT discord_bot:bot
