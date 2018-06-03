@@ -83,7 +83,7 @@ async def catgirl(ctx, param = None):
 		while(score < 5):
 			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
 			post = json.loads(rPost.text)
-			score = int(post['score'])
+			score = post['score']
 		if (rPost.status_code == 200 and len(rPost.text) > 2):
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
@@ -95,9 +95,12 @@ async def catgirl(ctx, param = None):
 			await ctx.send('The Server is currently experiencing some issues. Please try again later')
 	if (param == "-nsfw"):
 		if (ctx.channel.is_nsfw()):
-			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:e')
-			if (rPost.status_code == 200 and len(rPost.text) > 2):
+			score = 0
+			while(score < 5):
+				rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:e')
 				post = json.loads(rPost.text)
+				score = int(post['score'])
+			if (rPost.status_code == 200 and len(rPost.text) > 2):
 				if (post['pixiv_id'] != 'null'):
 					if (post['source'] is not 'None' and post['source'] is not None):
 						loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
