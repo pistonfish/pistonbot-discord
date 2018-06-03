@@ -79,9 +79,12 @@ async def dog(ctx, param = None):
 @bot.command(description = 'Sends a picture of a catgirl. Use the optional -nsfw parameter to get lewd pictures (only works in nsfw-channels)', brief = 'Sends a picture of a catgirl.', usage = '[-nsfw]', help = 'Uses Danbooru to send you some catgirls.')
 async def catgirl(ctx, param = None):
 	if (param == None):
-		rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
-		if (rPost.status_code == 200 and len(rPost.text) > 2):
+		score = 0
+		while(score < 5):
+			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
 			post = json.loads(rPost.text)
+			score = post
+		if (rPost.status_code == 200 and len(rPost.text) > 2):
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
 					loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
