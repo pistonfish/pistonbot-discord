@@ -79,14 +79,8 @@ async def dog(ctx, param = None):
 @bot.command(description = 'Sends a picture of a catgirl. Use the optional -nsfw parameter to get lewd pictures (only works in nsfw-channels)', brief = 'Sends a picture of a catgirl.', usage = '[-nsfw]', help = 'Uses Danbooru to send you some catgirls.')
 async def catgirl(ctx, param = None):
 	if (param == None):
-		rList = requests.get('https://danbooru.donmai.us/post/index.json?limit=1000000000&tags=cat_ears+rating%3As+filesize:200kb..8M')
-		if (rList.status_code == 200 and rList.text != '[]'):
-			idStart = idEnd = None
-			while(idStart == None or idEnd == None):
-				x = random.randrange(0, len(rList.text), 1)
-				idStart = rList.text.find('"id":', x) + 5
-				idEnd = rList.text.find(',"file_url"', x)
-			rPost = requests.get('https://danbooru.donmai.us/posts/%s.json' % (rList.text[idStart:idEnd]))
+		rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
+		if (rPost.status_code == 200 and rPost.text != '[]'):
 			post = json.loads(rPost.text)
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
