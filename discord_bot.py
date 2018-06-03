@@ -80,7 +80,7 @@ async def dog(ctx, param = None):
 async def catgirl(ctx, param = None):
 	if (param == None):
 		rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
-		if (rPost.status_code == 200 and rPost.text != '[]'):
+		if (rPost.status_code == 200 and len(rPost.text) > 2):
 			post = json.loads(rPost.text)
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
@@ -92,14 +92,8 @@ async def catgirl(ctx, param = None):
 			await ctx.send('The Server is currently experiencing some issues. Please try again later')
 	if (param == "-nsfw"):
 		if (ctx.channel.is_nsfw()):
-			rList = requests.get('https://danbooru.donmai.us/post/index.json?limit=1000000000&tags=cat_ears+rating:e')
-			if (rList.status_code == 200 and rList.text != '[]'):
-				idStart = idEnd = None
-				while(idStart == None or idEnd == None):
-					x = random.randrange(0, len(rList.text), 1)
-					idStart = rList.text.find('"id":', x) + 5
-					idEnd = rList.text.find(',"file_url"', x)
-				rPost = requests.get('https://danbooru.donmai.us/posts/%s.json' % (rList.text[idStart:idEnd]))
+			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:e')
+			if (rPost.status_code == 200 and len(rPost.text) > 2):
 				post = json.loads(rPost.text)
 				if (post['pixiv_id'] != 'null'):
 					if (post['source'] is not 'None' and post['source'] is not None):								
@@ -129,14 +123,8 @@ async def danbooru(ctx, param1, param2 = None):
 		else:
 			await ctx.send('Please specify a searchword')
 	if (param1 != "-search" and param2 == None):
-		rList = requests.get('https://danbooru.donmai.us/post/index.json?limit=1000000000&tags=%s+rating:s' % (param1))
-		if (rList.status_code == 200 and len(rList.text) > 2):
-			idStart = idEnd = None
-			while(idStart == None or idEnd == None):
-				x = random.randrange(0, len(rList.text), 1)
-				idStart = rList.text.find('"id":', x) + 5
-				idEnd = rList.text.find(',"file_url"', x)
-			rPost = requests.get('https://danbooru.donmai.us/posts/%s.json' % (rList.text[idStart:idEnd]))
+		rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=%s+rating:s+filesize:200kb..8M' % (param1))
+		if (rPost.status_code == 200 and len(rPost.text) > 2):
 			post = json.loads(rPost.text)
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
@@ -148,14 +136,8 @@ async def danbooru(ctx, param1, param2 = None):
 			await ctx.send('The Server is currently experiencing some issues or your tag was not found')
 	if (param1 != "-search" and param2 == '-nsfw'):
 		if (ctx.channel.is_nsfw()):
-			rList = requests.get('https://danbooru.donmai.us/post/index.json?limit=1000000000&tags=%s+rating:e' % (param1))
-			if (rList.status_code == 200 and len(rList.text) > 2):
-				idStart = idEnd = None
-				while(idStart == None or idEnd == None):
-					x = random.randrange(0, len(rList.text) - 100, 10)
-					idStart = rList.text.find('"id":', x) + 5
-					idEnd = rList.text.find(',"file_url"', x)
-				rPost = requests.get('https://danbooru.donmai.us/posts/%s.json' % (rList.text[idStart:idEnd]))
+			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=%s+rating:e' % (param1))
+			if (rPost.status_code == 200 and len(rPost.text) > 2):
 				post = json.loads(rPost.text)
 				if (post['pixiv_id'] != 'null'):
 					if (post['source'] is not 'None' and post['source'] is not None):
