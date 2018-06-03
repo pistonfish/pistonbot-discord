@@ -96,7 +96,7 @@ async def catgirl(ctx, param = None):
 	if (param == "-nsfw"):
 		if (ctx.channel.is_nsfw()):
 			score = 0
-			while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200)
+			while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200):
 				rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:e')
 				post = json.loads(rPost.text)
 				score = post['score']
@@ -130,7 +130,7 @@ async def danbooru(ctx, param1, param2 = None):
 			await ctx.send('Please specify a searchword')
 	if (param1 != "-search" and param2 == None):
 		score = 0
-		while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200)
+		while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200):
 			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=%s+rating:s+filesize:200kb..8M' % (param1))
 			post = json.loads(rPost.text)
 			score = post['score']
@@ -146,7 +146,7 @@ async def danbooru(ctx, param1, param2 = None):
 	if (param1 != "-search" and param2 == '-nsfw'):
 		if (ctx.channel.is_nsfw()):
 			score = 0
-			while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200)
+			while(score < 5 and requests.get('https://danbooru.donmai.us').status_code == 200):
 				rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=%s+rating:e' % (param1))
 				post = json.loads(rPost.text)
 				score = post['score']
