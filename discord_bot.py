@@ -10,7 +10,6 @@ from discord import Game
 loop = asyncio.get_event_loop()
 bot = commands.Bot(command_prefix='!')
 
-
 #console outputs for monitoring
 @bot.event
 async def on_ready():
