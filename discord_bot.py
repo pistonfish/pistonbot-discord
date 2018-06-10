@@ -151,7 +151,6 @@ async def danbooru(ctx, param1, param2 = None):
 				post = json.loads(rPost.text)
 				score = post['score']
 			if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
-				post = json.loads(rPost.text)
 				if (post['pixiv_id'] != 'null'):
 					if (post['source'] is not 'None' and post['source'] is not None):
 						loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
