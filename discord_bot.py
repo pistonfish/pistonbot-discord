@@ -84,7 +84,7 @@ async def catgirl(ctx, param = None):
 			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
 			post = json.loads(rPost.text)
 			score = post['score']
-		await ctx.send(post['score'])
+		await ctx.send(rPost.text)
 		if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
 			if (post['pixiv_id'] != 'null'):
 				if (post['source'] is not 'None' and post['source'] is not None):
