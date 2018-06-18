@@ -84,7 +84,6 @@ async def catgirl(ctx, param = None):
 			rPost = requests.get('https://danbooru.donmai.us/posts/random.json?tags=cat_ears+rating:s+filesize:200kb..8M')
 			post = json.loads(rPost.text)
 			score = post['score']
-		await ctx.send(post['id'])
 		if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
 			if (post['pixiv_id']):
 				if (post['source'] is not 'None' and post['source'] is not None):
@@ -102,7 +101,7 @@ async def catgirl(ctx, param = None):
 				post = json.loads(rPost.text)
 				score = post['score']
 			if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
-				if (post['pixiv_id'] != 'null'):
+				if (post['pixiv_id']):
 					if (post['source'] is not 'None' and post['source'] is not None):
 						loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
 				else:
@@ -136,7 +135,7 @@ async def danbooru(ctx, param1, param2 = None):
 			post = json.loads(rPost.text)
 			score = post['score']
 		if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
-			if (post['pixiv_id'] != 'null'):
+			if (post['pixiv_id']):
 				if (post['source'] is not 'None' and post['source'] is not None):
 					loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
 			else:
@@ -152,7 +151,7 @@ async def danbooru(ctx, param1, param2 = None):
 				post = json.loads(rPost.text)
 				score = post['score']
 			if (requests.get('https://danbooru.donmai.us').status_code == 200 and len(rPost.text) > 2):
-				if (post['pixiv_id'] != 'null'):
+				if (post['pixiv_id']):
 					if (post['source'] is not 'None' and post['source'] is not None):
 						loop.create_task(sendImage(ctx, post['large_file_url'], 'https://www.pixiv.net/member_illust.php?mode=medium&illust_id=%s' % (post['pixiv_id'])))
 				else:
